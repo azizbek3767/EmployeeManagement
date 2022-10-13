@@ -1,0 +1,36 @@
+﻿@model EmployeeManagement.ViewModels.CompanyIndexViewModel
+
+@{
+    ViewBag.Title = "Company Index";
+}
+
+<a asp-controller="Company" asp-action="create" class="btn btn-primary mb-2">Create a new Company</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Company Name</th>
+            <th scope="col">Type of business entity</th>
+            <th scope="col">Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var company in Model.Companies)
+        {
+            <tr>
+                <th>@company.Id</th>
+                <th>@company.Name</th>
+                <th>@company.TypeOfBusinessEntity</th>
+                <th>
+                    <a asp-controller="company" asp-action="edit" asp-route-Id="@company.Id" class="btn btn-primary m-1">Edit</a>
+                    <form asp-controller="company" asp-action="delete" asp-route-Id="@company.Id" method="post" style="display: inline-block;">
+                        <button type="submit" class="btn btn-danger"
+                            onclick="return confirm('Are you sure that you want to delete?');">
+                            Delete
+                        </button>
+                    </form>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>

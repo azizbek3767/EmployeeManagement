@@ -1,0 +1,63 @@
+﻿@model EmployeeEditViewModel
+
+@{
+    ViewBag.Title = "Employee Edit";
+
+}
+
+<form enctype="multipart/form-data" asp-controller="employee" asp-action="edit" method="post" class="mt-3">
+    <input hidden asp-for="Id" />
+    <div class="form-group row">
+        <label asp-for="FirstName" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="FirstName" placeholder="First Name" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="LastName" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="LastName" placeholder="Last Name" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="StartDateOfWork" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="StartDateOfWork" asp-format="{0:dd/MM/yyyy}" class="form-control"
+                   value="@Model.StartDateOfWork.ToString("yyyy-MM-dd")" />
+            <span asp-validation-for="StartDateOfWork" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="Position" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <select asp-for="Position" asp-items="Html.GetEnumSelectList<Positions>()">
+                <option value="">Please Select</option>
+            </select>
+            <span asp-validation-for="Position" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="Company" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <select asp-for="Company" asp-items="@(new SelectList(Model.Companies, nameof(Company.Name), nameof(Company.Name)))">
+                <option value="">Please Select</option>
+            </select>
+            <span asp-validation-for="Company" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a asp-controller="employee" asp-action="index" class="btn btn-primary">Cancel</a>
+        </div>
+    </div>
+    <div asp-validation-summary="All" class="text-danger"></div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+} 
